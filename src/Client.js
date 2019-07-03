@@ -24,8 +24,12 @@ export default class Client {
         return this.socket.on(eventName, callback);
     }
 
-    startSimulation (formalism, data) {
-        this.socket.emit('simulation.start', formalism, data);
+    initSimulation (formalism, data) {
+        this.socket.emit('simulation.init', formalism, data);
+    }
+
+    step (formalism) {
+        this.socket.emit('simulation.step', formalism);
     }
 
 }
