@@ -24,12 +24,21 @@ export default class Client {
         return this.socket.on(eventName, callback);
     }
 
-    initSimulation (formalism, data) {
-        this.socket.emit('simulation.init', formalism, data);
+    initSimulation (formalism, netModel, serializedData) {
+        this.socket.emit(
+            'simulation.init',
+            formalism,
+            netModel,
+            serializedData
+        );
     }
 
     step (formalism) {
         this.socket.emit('simulation.step', formalism);
+    }
+
+    terminate (formalism) {
+        this.socket.emit('simulation.terminate', formalism);
     }
 
 }
