@@ -33,12 +33,24 @@ export default class Client {
         );
     }
 
+    start (formalism) {
+        this.socket.emit('simulation.start', formalism);
+    }
+
     step (formalism) {
         this.socket.emit('simulation.step', formalism);
     }
 
+    stop (formalism) {
+        this.socket.emit('simulation.stop', formalism);
+    }
+
     terminate (formalism) {
         this.socket.emit('simulation.terminate', formalism);
+    }
+
+    getMarking (formalism) {
+        this.socket.emit('marking.get', formalism);
     }
 
 }
