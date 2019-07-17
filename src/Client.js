@@ -24,7 +24,7 @@ export default class Client {
         return this.socket.on(eventName, callback);
     }
 
-    initSimulation (formalism, netModel, serializedData) {
+    sendInit (formalism, netModel, serializedData) {
         this.socket.emit(
             'simulation.init',
             formalism,
@@ -33,24 +33,49 @@ export default class Client {
         );
     }
 
-    start () {
+    sendStart () {
         this.socket.emit('simulation.start');
     }
 
-    step () {
+    sendStep () {
         this.socket.emit('simulation.step');
     }
 
-    stop () {
+    sendStop () {
         this.socket.emit('simulation.stop');
     }
 
-    terminate () {
+    sendTerminate () {
         this.socket.emit('simulation.terminate');
     }
 
-    getMarking () {
+    sendGetMarking () {
         this.socket.emit('marking.get');
+    }
+
+    onMarkingUpdate (callback) {
+        this.on('marking.update', callback);
+        return this;
+    }
+
+    onPluginUpdate (callback) {
+        this.on('plugin.list', callback);
+        return this;
+    }
+
+    onSimulationInit (callback) {
+        this.on('simulation.initialized', callback);
+        return this;
+    }
+
+    onSimulationError (callback) {
+        this.on('simulation.error', callback);
+        return this;
+    }
+
+    onDisconnect (callback) {
+        this.on('disconnect', callback);
+        return this;
     }
 
 }
